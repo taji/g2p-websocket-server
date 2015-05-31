@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# convert root directory to absolute path.
+project_root=$(realpath ../..)
+printf "project_root is : %s" "$project_root"
+echo
+
+# run docker container as :
+#   --publish = map the host port to the internal container port. In this case:
+#            8080 = HTTP port.
+#   --interactive  = interactive mode. Docker will allow us to interact with the shell.
+#   --tty = Allocate a pseudo-TTY, you need both -i and -t to shell immediately into the container you are running.
+#   --volume = /hostpath:/containerpath = mount the hostpath directory from the host environment inside the container. 
+#      This allows us to make changes in our host environment which are “replicated” inside the Docker container.
+#   --workdir = set the working directory to the containerpath from the --volume command.
+#   /bin/bash = immediately open a bash shell in the container.
+docker run -p=8080:8080 --interactive --tty --volume="${project_root}:/g2p-ws" --workdir="/g2p-ws" --name="g2p-ws-dev" g2p-ws-dev  /bin/bash

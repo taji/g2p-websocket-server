@@ -1,0 +1,3 @@
+#!/bin/bash
+# build the container based on the Dockerfile in this folder and tag it with the name "g2p-ws-dev"
+docker build -t g2p-ws-dev .
